@@ -1,0 +1,96 @@
+\documentclass[a4paper,twoside=false,abstract=false,numbers=noenddot,
+titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+
+\usepackage[colorlinks=true, pdfstartview=FitV,
+linkcolor=black, citecolor=black, urlcolor=blue]{hyperref}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{multirow}
+
+\usepackage{tikz}
+\usepackage{header}
+
+\usetikzlibrary{matrix}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+\theoremstyle{definition}
+
+\theoremstyle{remark}
+\newtheorem*{solution}{Solution}
+\newtheorem*{remark}{Remark}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newenvironment{exercise}[2][Exercise]{
+    \begin{trivlist}
+        \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2}]}{
+    \end{trivlist}
+}
+
+\newcommand{\NN}{\ensuremath{\mathbb{N}}}
+\newcommand{\ZZ}{\ensuremath{\mathbb{Z}}}
+\newcommand{\QQ}{\ensuremath{\mathbb{Q}}}
+\newcommand{\RR}{\ensuremath{\mathbb{R}}}
+\newcommand{\CC}{\ensuremath{\mathbb{C}}}
+\newcommand{\GG}{\ensuremath{\mathcal{G}}}
+\newcommand{\Fourier}{\ensuremath{\mathcal{F}}}
+\newcommand{\Laplace}{\ensuremath{\mathcal{L}}}
+
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+\begin{document}
+
+\generateheader{Homework 1}
+
+\thispagestyle{empty}
+
+\begin{exercise}{2.16} Mean, mode, variance for the beta distribution \\
+    Suppose $\theta \sim Beta(a,b)$. Derive the mean, mode and variance.
+\end{exercise}
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}{3.6} MLE for the Poisson distribution \\
+    The Poisson pmf is defined as
+    $Poi(x|\lambda)=e^{-\lambda}\frac{\lambda^x}{x!}$ for $x \in \{0,1,2,..\}$
+    where $\lambda>0$ is the rate parameter. Derive the MLE. 
+\end{exercise}
+\begin{solution}
+
+\end{solution}
+
+\begin{exercise}{3.7} Bayesian analysis of the Poisson distribution \\
+    In exercise 3.6, we defined the Poisson distribution with rate $\lambda$
+    and derived its MLE. Here we perform a conjugate Bayesian analysis. 
+    \begin{description}
+        \item[a.] Derive the posterior $p(\lambda|D)$ assuming a conjugate
+            prior $p(\lambda)=Ga(\lambda|a,b)\propto
+            \lambda^{a-1}e^{-\lambda b}$. Hint: the posterior is also a Gamma
+            distribution. 
+        \item[b.] What does the posterior mean tend to as $a\rightarrow 0$ and
+            $b\rightarrow 0$? (Recall that the mean of a $Ga(a,b)$ distribution
+            is $a/b$.)
+    \end{description}
+\end{exercise}
+\begin{solution}
+\end{solution}
+
+%-----------------------
+\end{document}
