@@ -128,7 +128,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     \end{equation}
     Which gives MLE for $\lambda$:
     \begin{equation}
-        \lambda=\frac{\sum{x_i}}{|\{x_i\}|}=\Expected x
+        \lambda=\frac{\sum{x_i}}{|\{x_i\}|}(=\Expected x)
     \end{equation}
 \end{solution}
 
@@ -146,7 +146,34 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     \end{description}
 \end{exercise}
 \begin{solution}
-
+    $Ga(a,b)$ is denoted $\Gamma(a,b)$.
+    \begin{equation}
+        \begin{split}
+            \cprob{\lambda}{D}\propto
+            \cprob{D}{\lambda}p(\lambda)=\lambda^{a-1}e^{-\lambda
+            b}\prod\limits_i{(\Poi{\lambda}{x_i})}\propto
+            \lambda^{a-1}e^{-\lambda
+            b}e^{-|D|\lambda}\prod\limits_i{\lambda^{x_i}}= \\
+            =e^{-|D|\lambda}e^{-\lambda}\lambda^{a-1}\lambda^{\sum{x_i}}=
+            e^{-(|D|+b)\lambda}\lambda^{\sum{x_i}+a-1}\propto
+            \Gamma\bigg(\sum{x_i}+a,|D|+b\bigg)
+        \end{split}
+    \end{equation}
+    and since $\cprob{\lambda}{D}$ is a distribution its normalized and it will
+    result in not only being proportional but equally distributed:
+    \begin{equation}
+        \cprob{\lambda}{D}=\Gamma\bigg(\sum{x_i}+a,|D|+b\bigg)
+    \end{equation}
+    With 
+    \begin{equation}
+        X \sim \Gamma\bigg(\sum{x_i}+a,|D|+b\bigg)
+    \end{equation}
+    the limit becomes
+    \begin{equation}
+        \lim_{a,b\rightarrow 0} \Expected X = \lim_{a,b\rightarrow 0}\frac{\sum
+        x_i+a}{|D|+b}=\frac{\sum x_i}{|D|} (=E x)
+    \end{equation}
+    
 \end{solution}
 
 %-----------------------
