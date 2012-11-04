@@ -1,1 +1,6 @@
 ln/
+*.aux
+*.log
+*.out
+*.swp
+*.swo
