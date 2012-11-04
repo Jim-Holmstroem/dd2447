@@ -99,11 +99,37 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
 
 \begin{exercise}{3.6} MLE for the Poisson distribution \\
     The Poisson pmf is defined as
-    $Poi(x|\lambda)=e^{-\lambda}\frac{\lambda^x}{x!}$ for $x \in \{0,1,2,..\}$
+    $Poi(x|\lambda)=\Poi{\lambda}{x}$ for $x \in \{0,1,2,..\}$
     where $\lambda>0$ is the rate parameter. Derive the MLE. 
 \end{exercise}
 \begin{solution}
-
+    The data $D = \{x_i\}$ is $i.i.d \bigwedge x_i\sim Poi(\lambda)$
+    \begin{equation}
+        \cprob{x_i}{\lambda} = \Poi{\lambda}{x_i}
+    \end{equation}
+    The probability for $D$:
+    \begin{equation}
+        L(\lambda)=\cprob{\{x_i\}}{\lambda}=\prod\limits_i{\cprob{x_i}{\lambda}}=\prod\limits_i \Poi{\lambda}{x_i}
+    \end{equation}
+    The log-likelihood for the parameter $\lambda$
+    \begin{equation}
+        \ell(\lambda)=\log(\prod\limits_i\Poi{\lambda}{x_i})=
+        \sum\limits_i{(-\lambda+x_i \log\lambda-\log x_i)}
+    \end{equation}
+    Find the maximum likely $\lambda$ by finding the maximum $\log$-likely
+    $\lambda$ which will coincide since $\log$ is a strictly increasing
+    function.
+    \begin{equation}
+        \partdev{\ell(\lambda)}{\lambda} = 0
+    \end{equation}
+    \begin{equation}
+        \partdev{\ell(\lambda)}{\lambda} =
+        \sum\limits_i{\bigg(-1+\frac{x_i}{\lambda}\bigg)}=-|\{x_i\}|+\frac{\sum{x_i}}{\lambda}=0
+    \end{equation}
+    Which gives MLE for $\lambda$:
+    \begin{equation}
+        \lambda=\frac{\sum{x_i}}{|\{x_i\}|}=\Expected x
+    \end{equation}
 \end{solution}
 
 \begin{exercise}{3.7} Bayesian analysis of the Poisson distribution \\
