@@ -64,11 +64,25 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     To find it we use
     \begin{equation}
         \partdev{Beta_{a,b}(\theta)}{\theta}=0,
-        \doublepartdev{Beta_{a,b}(\theta)}{\theta}<0
+        \evaluatedat{
+            \doublepartdev{
+                Beta_{a,b}(\theta)
+            }{
+                \theta
+            }
+        }{
+            \theta:\partdev{
+                Beta_{a,b}(\theta)
+            }{
+                \theta
+            }=0
+        }
+        <0
     \end{equation}
 
     \begin{equation}
         \begin{split}
+            \label{eq:dBeta}
             0=B(a,b)\partdev{Beta_{a,b}(\theta)}{\theta}=\{\text{prod. rule}\}= \\
             =(a-1)\theta^{a-2}(1-\theta)^{b-1}-(b-1)\theta^{a-1}(1-\theta)^{b-2}
         \end{split}
@@ -81,8 +95,122 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
         (a-1)(1-\theta)=(b-1)\theta 
     \end{equation}
     \begin{equation}
-        \theta=\frac{1}{1+\frac{b-1}{a-1}}=\frac{a-1}{a-1+b-1}=\frac{a-1}{a+b-2} 
+        \theta=\frac{1}{1+\frac{b-1}{a-1}}=
+        \frac{a-1}{a-1+b-1}=\frac{a-1}{a+b-2} 
     \end{equation}
+    \begin{equation}
+        \begin{split}
+            \doublepartdev{
+                Beta_{a,b}(\theta)
+            }{
+                \theta
+            }=
+            \partdev{
+                (\eqref{eq:dBeta})
+            }{
+                \theta
+            }=
+            \partdev{
+                (a-1)\theta^{a-2}(1-\theta)^{b-1}-
+                (b-1)\theta^{a-1}(1-\theta)^{b-2}
+            }{
+                \theta
+            }= \\
+            = (a-1)(a-2)\theta^{a-3}(1-\theta)^{b-1}
+             -(a-1)(b-1)\theta^{a-2}(1-\theta)^{b-2} \\
+             -(b-1)(a-1)\theta^{a-2}(1-\theta)^{b-2}
+             +(b-1)(b-2)\theta^{a-1}(1-\theta)^{b-3}  
+        \end{split}
+    \end{equation}
+
+    \begin{equation}
+        \evaluatedat{
+            \doublepartdev{
+                Beta_{a,b}(\theta)
+            }{
+                \theta
+            }
+        }{
+            \theta=\frac{a-1}{a+b-2}
+        } = ... = 
+        \frac{
+            (
+                \frac{
+                    a-1 
+                }{
+                    a+b-2
+                }   
+            )^a
+            (
+                \frac{
+                    b-1 
+                }{
+                    a+b-2
+                }   
+            )^b
+            (a+b-2)^5
+        }{
+            (a-1)^2(b-1)^2
+        } < 0
+    \end{equation}
+    \begin{equation}
+        \frac{
+            (
+                \frac{
+                    a-1 
+                }{
+                    a+b-2
+                }   
+            )^a
+            (
+                \frac{
+                    b-1 
+                }{
+                    a+b-2
+                }   
+            )^b
+            (a+b-2)^5
+        }{
+            (a-1)^2(b-1)^2
+        } < 0
+    \end{equation}
+    \begin{equation}
+        {
+            \bigg(
+                \frac{
+                    a-1 
+                }{
+                    a+b-2
+                }   
+            \bigg)^a
+            \bigg(
+                \frac{
+                    b-1 
+                }{
+                    a+b-2
+                }   
+            \bigg)^b
+            (a+b-2)^5
+        } < 0
+    \end{equation}
+    we can easily see from the last part that $a+b>2$ and the two first cannot
+    compensate to make it negative.
+    $(a+b-2)^c$ will be constant and non-negative $\forall c$ and can thus be cancelled out.
+    \begin{equation}
+        {
+            (
+                    a-1 
+            )^a
+            (
+                    b-1 
+            )^b
+        } < 0
+    \end{equation}
+    now we see that for $a,b>1$ guarantees that the expression will hold and 
+    $a,b\neq0$ to not be $0$. Now
+    $a,b\in \big(0,1\big)$ is still to be checked
+    
+
     Finally we deal with the variance: 
     \begin{equation}
         \begin{split}
