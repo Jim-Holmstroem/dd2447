@@ -146,7 +146,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     \end{description}
 \end{exercise}
 \begin{solution}
-    $Ga(a,b)$ is denoted $\Gamma(a,b)$.
+    $Ga(a,b)$ is denoted $\Gamma(a,b)$ and $a,b>0$ of a $\Gamma$-distribution.
     \begin{equation}
         \begin{split}
             \cprob{\lambda}{D}\propto
@@ -159,16 +159,18 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
             \Gamma\bigg(\sum{x_i}+a,|D|+b\bigg)
         \end{split}
     \end{equation}
-    and since $\cprob{\lambda}{D}$ is a distribution its normalized and it will
+    with the parameters for the $\Gamma$-function being $a'=\sum x_i + a \ge a > 0$
+    and $b' = |D| + b \ge b > 0$ together with the fact that
+    $\cprob{\lambda}{D}$ is a distribution, that is properly normalized, it will
     result in not only being proportional but equally distributed:
     \begin{equation}
         \cprob{\lambda}{D}=\Gamma\bigg(\sum{x_i}+a,|D|+b\bigg)
     \end{equation}
-    With 
+    still acting as a distribution, the samples
     \begin{equation}
         X \sim \Gamma\bigg(\sum{x_i}+a,|D|+b\bigg)
     \end{equation}
-    the limit becomes
+    in the limit the $\Expected$ becomes
     \begin{equation}
         \lim_{a,b\rightarrow 0} \Expected X = \lim_{a,b\rightarrow 0}\frac{\sum
         x_i+a}{|D|+b}=\frac{\sum x_i}{|D|} (=E x)
