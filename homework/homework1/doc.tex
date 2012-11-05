@@ -82,12 +82,13 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     \begin{equation}
         \theta=\frac{1}{1+\frac{b-1}{a-1}}=\frac{a-1}{a-1+b-1}=\frac{a-1}{a+b-2} 
     \end{equation}
-    Finally we deal with the variance:
+    Finally we deal with the variance: 
     \begin{equation}
         \begin{split}
             \Variance(\theta)=\Expected\theta^2 - (\Expected\theta)^2=
             \int\theta'^2 Beta_{a,b}(\theta')d\theta' - (\Expected\theta)^2= \\
-            = \frac{B(a+2,b)}{B(a,b)} - (\Expected\theta)^2 =
+            = \frac{B(a+2,b)}{B(a,b)} - (\Expected\theta)^2 = \{\text{Using
+            Lemma \ref{lem:Bplus1}}\}=
             \frac{(a+1)}{(a+b+1)}\frac{a}{(a+b)} - \bigg(\frac{a}{a+b}\bigg)^2 =
             \\
             = \frac{a}{a+b}\bigg(\frac{(a+1)(a+b)-a(a+b+1)}{(a+b)(a+b+1)}\bigg)
