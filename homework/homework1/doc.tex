@@ -193,23 +193,37 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
             (a+b-2)^5
         } < 0
     \end{equation}
-    we can easily see from the last part that $a+b>2$ and the two first cannot
-    compensate to make it negative.
-    $(a+b-2)^c$ will be constant and non-negative $\forall c$ and can thus be cancelled out.
     \begin{equation}
         {
             (
-                    a-1 
+                a-1 
             )^a
             (
-                    b-1 
+                b-1 
+            )^b
+            (a+b-2)^\frac{5}{a+b}
+        } < 0
+    \end{equation}
+
+    we can easily see from the last power-term that $a+b>2$.
+    This makes $(a+b-2)^c$ will be non-negative $\forall c$ and 
+    can thus be cancelled out.
+    \begin{equation}
+        {
+            (
+                a-1 
+            )^a
+            (
+                b-1 
             )^b
         } < 0
     \end{equation}
-    now we see that for $a,b>1$ guarantees that the expression will hold and 
-    $a,b\neq0$ to not be $0$. Now
-    $a,b\in \big(0,1\big)$ is still to be checked
-    
+    now we see that $a,b>1$, in the other cases the distribution will not have
+    a well defined mode.
+
+    \begin{equation}
+        \therefore(Mode) \theta = \frac{a-1}{a+b-2}, a,b>1
+    \end{equation}
 
     Finally we deal with the variance: 
     \begin{equation}
