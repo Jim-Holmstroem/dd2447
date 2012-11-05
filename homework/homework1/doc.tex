@@ -206,7 +206,8 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
         } < 0
     \end{equation}
     we can from here see that $a,b>1$, in the other cases the distribution will not have
-    a well defined mode.
+    a well defined mode. For example $\Gamma(1/2,1/2)=U(0,1)$ which doesn't have
+    a distinct maximum and for other values the function will not be bounded.
 
     \begin{equation}
         \therefore Mode(\theta) = \frac{a-1}{a+b-2}\bigwedge a,b>1
@@ -215,7 +216,10 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     Finally we deal with the variance: 
     \begin{equation}
         \begin{split}
-            \Variance(\theta)=\Expected\theta^2 - (\Expected\theta)^2=
+            \Variance(\theta)=\Expected(\theta-\Expected\theta)^2= \\
+            =\{\Expected\theta\Expected\theta=(\Expected\theta)^2,
+            \Expected\Expected\theta=\Expected\theta\}= \\
+            =\Expected\theta^2 - (\Expected\theta)^2=
             \int\theta'^2 Beta_{a,b}(\theta')d\theta' - (\Expected\theta)^2= \\
             = \frac{B(a+2,b)}{B(a,b)} - (\Expected\theta)^2 = \{\text{Using
             Lemma \ref{lem:Bplus1}}\}=
@@ -238,7 +242,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     \begin{equation}
         \cprob{x_i}{\lambda} = \Poi{\lambda}{x_i}
     \end{equation}
-    The likelihood of $D$:
+    The likelihood:
     \begin{equation}
         L(\lambda)=\cprob{\{x_i\}}{\lambda}=\prod\limits_i{\cprob{x_i}{\lambda}}=\prod\limits_i \Poi{\lambda}{x_i}
     \end{equation}
