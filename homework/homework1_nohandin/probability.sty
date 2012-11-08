@@ -1,0 +1,33 @@
+\ProvidesPackage{probability}
+
+\def\Equidistributed{\stackrel{d}{=}}
+\def\ConvergesAlmostSurely{\stackrel{a.s.}{\longrightarrow}}
+\def\ConvergesProbability{\stackrel{p}{\longrightarrow}}
+\def\ConvergesRmean{\stackrel{r}{\longrightarrow}}
+\def\ConvergesDistrubution{\stackrel{d}{\longrightarrow}}
+
+\newcommand{\Normal}{\ensuremath{\mathcal{N}}}
+
+%operators
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\argmax}[1]{\underset{#1}{argmax}}
+\newcommand{\argmin}[1]{\underset{#1}{argmin}}
+
+\newcommand{\Poi}[2]{e^{-{#1}}\frac{{#1}^{#2}}{{#2}!}}
+%\def{\LogLikelihood}{\ell}
+%\log
+\newcommand{\prob}[1]{p{(#1)}}
+\newcommand{\cprob}[2]{\prob{\left. #1 \middle\vert #2 \right.}}
+\newcommand{\ndist}[2]{\mathcal{N}{\left(#1, #2\right)}}
+
+\newcommand{\Ordo}[1]{\mathcal{O}{\left(#1\right)}}
+
+\newcommand{\interval}[2]{
+          \left[#1, #2\right]
+      }
+\def\eqdef{\buildrel\triangle\over =}
+      
+\def\Variance{{\rm Var}\,}
+\def\CoVariance{{\rm Cov}\,}
+\def\Correlation{{\rm Corr}\,}
+\def\Expected{{\rm E}\,}
