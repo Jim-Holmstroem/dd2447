@@ -1,7 +1,7 @@
 \documentclass[a4paper,twoside=false,abstract=false,numbers=noenddot,
 titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
-\usepackage{header}
-\usepackage{probability}
+\usepackage{../lib/header}
+\usepackage{../lib/probability}
 \begin{document}
 \generateheader{Homework 1 (no hand-in)}
 
@@ -18,7 +18,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
 
 \end{solution}
 
-\begin{exercise}{5.9} Posterier median is optimal under L1 loss\\
+\begin{exercise}{5.9} Posterier median is optimal estimate under L1 loss\\
     Prove that the posterior median is optimal estimate under L1 loss.
 \end{exercise}
 \begin{solution}
@@ -28,7 +28,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
 \begin{exercise}{5.10} Decision rule for trading FPs and FNs\\
     If $L_{FN}=cL_{FP}$, show that we should pick 
     \begin{equation}
-        \hat{y}=1 \Leftrightarrow \cprob{y=1}{x}/\cprop{y=0}{x}>\tau,\;
+        \hat{y}=1 \Leftrightarrow \cprob{y=1}{x}/\cprob{y=0}{x}>\tau,\,
         \tau=\frac{c}{1+c}
     \end{equation}
 \end{exercise}
