@@ -63,6 +63,39 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     \end{itemize}
 \end{exercise}
 \begin{solution}
+    The M step is to optimize the auxiliary function $Q$ with respect to
+    $\pi,\theta'$. $Q$ is the expected log-likelihood with respect to the former
+    parameter $\theta$ and the observed data $D$. 
+    \footnote{It can be shown that $Q$ is so that the new parameters is always
+    better or as good as the last one, but exclude this proof.}
+    The expression for this is
+    \begin{equation}
+        Q(\theta', \theta) = \Expected\left[\ell(\theta')|D,\theta\right]
+    \end{equation}
+    and to derive the expression we will use when optimizing with ML/MAP we start
+    with introducing the latent variable $z_i$ which corresponds to the
+    hidden or missing
+    variables which basically is the $r.v.$ for how $x_i$
+    is in the class $k$ \footnote{Responsibility $r_{ik}\eqdef
+    \cprob{z_i=k}{x_i,\theta}$}.
+    
+    \begin{equation}
+       Q(\theta', \theta) = 
+       \Expected\left[\sum\limits_i\log \cprob{x_i,z_i}{\theta'}\right] 
+    \end{equation}
+    since $\Expected$ is linear and we can 
+    \begin{equation}
+       =\sum\limits_i\Expected \left[ 
+            \log\left[
+                \prod\limits_k{(
+                    \pi_k\cprob{x_i}{\theta_k}
+                )^{\II(z_i=k)}} 
+            \right]
+        \right] 
+    \end{equation}
+
+
+
 \end{solution}
 
 %-----------------------
