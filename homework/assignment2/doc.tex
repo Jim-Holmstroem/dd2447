@@ -112,7 +112,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     finally get
     \begin{equation}
         = \sum\limits_i \sum\limits_k {r_{ik}\log \pi_k} +
-        \sum\limits_i \sum\limits_k \log \cprob{x_i}{\theta'_k}
+        \sum\limits_i \sum\limits_k r_{ik} \log \cprob{x_i}{\theta'_k}
     \end{equation}
     
     Now since we have that $\sum\limits_{i,k}r_{ik}\log\pi_k \perp
@@ -120,6 +120,35 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     $\pi_k$ and $\theta'_k$ separately and only the $\theta'_k$-term is asked for in the
     exercise which will be denoted by $\ell(\theta'_k)$.
 
+    The model parameters in this case is denoted by $\mu_k$ which is a vector
+    and in index-notation $\mu_{kj}$\footnote{Not using Einstein notation for
+    Tensor product.}.
+
+    We start with the ML
+    \begin{equation}
+        \hat{\mu}'_k = \argmax{\mu'_k}{\left(\sum\limits_i r_{ik}\log(\cprob{x_i}{\mu'_k})\right)}
+    \end{equation}
+    which we find by $\partdev{\ell(\mu'_k)}{\mu'_k}=0$
+    \begin{eqnarray}
+        \partdev{
+            \left(
+                \log(
+                    \cprob{x}
+                    {\theta'_k}
+            \right)
+        }
+        {
+            \mu'_k
+        } = 
+        \sum\limits_i\log \prod\limits_j \cprob{x_ij}{\mu'_{kj}} =
+        \sum\limits_{i,j}\log\cprob{x_ij}{\mu'_{kj}} =  \\
+        =\sum\limits_{i,j}\log \left(
+            {\mu'_{kj}}^{x_{ij}}
+            (1-{\mu'_{kj}})^{(1-x_{ij})}
+        \right)=
+        \sum\limits_{i,j} x_{ij}{\mu'_{kj}} + (1-x_{ij})({1-\mu'_{kj}}) =\\
+        = \sum\limits_{i,j} 1 - x_{ij} - \mu'_{kj}
+    \end{eqnarray}
 
 \end{solution}
 
