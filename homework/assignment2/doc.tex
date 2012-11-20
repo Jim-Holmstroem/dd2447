@@ -83,17 +83,42 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
        Q(\theta', \theta) = 
        \Expected\left[\sum\limits_i\log \cprob{x_i,z_i}{\theta'}\right] 
     \end{equation}
-    since $\Expected$ is linear and we can 
+    since $\Expected$ is linear and we can factor on the different classes and
+    the factors becomes given only the parameters $(\pi_k,\theta'_k)$ of class $k$:
     \begin{equation}
        =\sum\limits_i\Expected \left[ 
             \log\left[
                 \prod\limits_k{(
-                    \pi_k\cprob{x_i}{\theta_k}
+                    \pi_k\cprob{x_i}{\theta'_k}
                 )^{\II(z_i=k)}} 
             \right]
         \right] 
     \end{equation}
-
+    then log the inner parts and let $\Expected$ operate on the expression like
+    this:
+    \begin{equation}
+        =\sum\limits_i\sum\limits_k\Expected
+            \left[
+                \II(z_i=k)
+            \right]
+            \log\left[
+                \cprob{x_i}{\theta'_k}
+            \right]
+    \end{equation}
+    then we put the expected $\Expected\left[\II(z_i=k)\right]$ to be
+    $\cprob{z_i=k}{x_i,\theta}=r_{ik}$ that is the expected class belonging is
+    determined by $x_i$ and the previous parameters $\theta$.
+    Now put in the denotation $r_{ik}$ and use the log on product rule to
+    finally get
+    \begin{equation}
+        = \sum\limits_i \sum\limits_k {r_{ik}\log \pi_k} +
+        \sum\limits_i \sum\limits_k \log \cprob{x_i}{\theta'_k}
+    \end{equation}
+    
+    Now since we have that $\sum\limits_{i,k}r_{ik}\log\pi_k \perp
+    \sum\limits_{i,k}\log\cprob{x_i}{\theta'_k}$ we can optimize the parameters
+    $\pi_k$ and $\theta'_k$ separately and only the $\theta'_k$-term is asked for in the
+    exercise which will be denoted by $\ell(\theta'_k)$.
 
 
 \end{solution}
