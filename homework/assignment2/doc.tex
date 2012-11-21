@@ -31,6 +31,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
         \item Show that the M step for ML estimation of a mixture of Bernoullis
             is given by
             \begin{equation}
+                \label{eq
                 \mu_{kj} = 
                 \frac
                 {
@@ -162,7 +163,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
             \right\}  = \\
         =
         \partdev{
-            \sum\limits_{i}\log \left(
+            \sum\limits_{i}r_{ik}\log \left(
                 {\mu'_{kj}}^{x_{ij}}
                 (1-{\mu'_{kj}})^{(1-x_{ij})}
             \right)
@@ -172,14 +173,14 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
         }
         =
         \partdev{
-            \sum\limits_{i} x_{ij}\log{\mu'_{kj}} + (1-x_{ij})\log({1-\mu'_{kj}})
+            \sum\limits_{i}r_{ik} x_{ij}\log{\mu'_{kj}} + r_{ik}(1-x_{ij})\log({1-\mu'_{kj}})
         }
         {
             \mu'_k  
         } = \\
-        = \sum\limits_{i} \frac{x_{ij}}{\mu'_{kj}} -
-        \frac{1-x_{ij}}{1-\mu'_{kj}} =
-        \sum\limits_i \frac{
+        = \sum\limits_{i} r_{ik}\frac{x_{ij}}{\mu'_{kj}} -
+        r_{ik}\frac{1-x_{ij}}{1-\mu'_{kj}} =
+        \sum\limits_i r_{ik}\frac{
             \mu'_{kj} - x_{ij}
         }
         {
@@ -188,7 +189,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     \end{eqnarray}
     now find the zero of this expression
     \begin{equation}
-         \sum\limits_i \frac{
+         \sum\limits_i r_{ik}\frac{
             \mu'_{kj} - x_{ij}
         }
         {
@@ -197,11 +198,20 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     \end{equation}
     \begin{equation}
          \sum\limits_i
-            \mu'_{kj} - x_{ij}
+            r_{ik}\mu'_{kj} - r_{ik}x_{ij}
          = 0
     \end{equation}
     \begin{equation}
-       \#\left\{x_i\right\}\mu'_{kj} = \sum\limits_i x_{ij} 
+        \mu'_{kj}\sum\limits_i r_{ik} = \sum\limits_i r_{ik} x_{ij} 
+    \end{equation}
+
+    \begin{equation}
+        \mu'_{kj} = \frac{
+            \sum_i r_{ik}x_{ij}
+        }
+        {
+            \sum_i r_{ik}
+        }
     \end{equation}
 
 \end{solution}
