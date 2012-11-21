@@ -31,7 +31,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
         \item Show that the M step for ML estimation of a mixture of Bernoullis
             is given by
             \begin{equation}
-                \label{eq
+                \label{eq:EM_ML_Ber}
                 \mu_{kj} = 
                 \frac
                 {
@@ -48,6 +48,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
         \item Show that the M step for MAP estimation of a mixture of
         Bernoullis with a $\beta(\alpha,\beta)$ prior is given by
             \begin{equation}
+                \label{eq:EM_MAP_Ber}
                 \mu_{kj} = 
                 \frac
                 {
@@ -213,6 +214,8 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
             \sum_i r_{ik}
         }
     \end{equation}
+
+    which is the same as the equation \eqref{eq:EM_ML_Ber}.
 
 \end{solution}
 
