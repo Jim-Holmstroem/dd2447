@@ -106,8 +106,8 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
             \right]
     \end{equation}
     then we put the expected $\Expected\left[\II(z_i=k)\right]$ to be
-    $\cprob{z_i=k}{x_i,\theta}=r_{ik}$ that is the expected class belonging is
-    determined by $x_i$ and the previous parameters $\theta$.
+    $\cprob{z_i=k}{x_i,\theta}=r_{ik}$ that is the expected class belonging of
+    $x_i$ given the previous parameters $\theta$.
     Now put in the denotation $r_{ik}$ and use the log on product rule to
     finally get
     \begin{equation}
@@ -116,7 +116,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     \end{equation}
     
     Now since we have that $\sum\limits_{i,k}r_{ik}\log\pi_k \perp
-    \sum\limits_{i,k}\log\cprob{x_i}{\theta'_k}$ we can optimize the parameters
+    \sum\limits_{i,k}r_{ik}\log\cprob{x_i}{\theta'_k}$ we can optimize the parameters
     $\pi_k$ and $\theta'_k$ separately and only the $\theta'_k$-term is asked for in the
     exercise which will be denoted by $\ell(\theta'_k)$.
 
@@ -142,13 +142,13 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
             \mu'_{kj}
         } = 
         \partdev{
-            \sum\limits_i\log \prod\limits_{j'} \cprob{x_{ij'}}{\mu'_{kj'}}
+            \sum\limits_i r_{ik}\log \prod\limits_{j'} \cprob{x_{ij'}}{\mu'_{kj'}}
         }
         {
             \mu'_{kj} 
         }=
         \partdev{
-        \sum\limits_{i,j'}\log\cprob{x_{ij'}}{\mu'_{kj'}} 
+        \sum\limits_{i,j'} r_{ik}\log\cprob{x_{ij'}}{\mu'_{kj'}} 
         }
         {
             \mu'_{kj}
@@ -200,7 +200,9 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
             \mu'_{kj} - x_{ij}
          = 0
     \end{equation}
-
+    \begin{equation}
+       \#\left\{x_i\right\}\mu'_{kj} = \sum\limits_i x_{ij} 
+    \end{equation}
 
 \end{solution}
 
