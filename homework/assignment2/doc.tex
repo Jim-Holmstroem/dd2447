@@ -142,13 +142,13 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
             \mu'_{kj}
         } = 
         \partdev{
-            \sum\limits_i\log \prod\limits_{j'} \cprob{x_{ij}}{\mu'_{kj'}}
+            \sum\limits_i\log \prod\limits_{j'} \cprob{x_{ij'}}{\mu'_{kj'}}
         }
         {
             \mu'_{kj} 
         }=
         \partdev{
-        \sum\limits_{i,j'}\log\cprob{x_{ij}}{\mu'_{kj}} 
+        \sum\limits_{i,j'}\log\cprob{x_{ij'}}{\mu'_{kj'}} 
         }
         {
             \mu'_{kj}
@@ -157,7 +157,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
                 \sum\limits_{j\neq j'} (\cdot)
             }
             {
-                \mu_{kj}
+                \mu'_{kj}
             } = 0
             \right\}  = \\
         =
@@ -177,8 +177,30 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
         {
             \mu'_k  
         } = \\
-        = \sum\limits_{i} \frac{x_{ij}}{\mu'_{kj}} - \frac{1-x_{ij}}{1-\mu'_k}
+        = \sum\limits_{i} \frac{x_{ij}}{\mu'_{kj}} -
+        \frac{1-x_{ij}}{1-\mu'_{kj}} =
+        \sum\limits_i \frac{
+            \mu'_{kj} - x_{ij}
+        }
+        {
+            \mu'_{kj}(\mu'_{kj}-1)    
+        }
     \end{eqnarray}
+    now find the zero of this expression
+    \begin{equation}
+         \sum\limits_i \frac{
+            \mu'_{kj} - x_{ij}
+        }
+        {
+            \mu'_{kj}(\mu'_{kj}-1)    
+        } = 0
+    \end{equation}
+    \begin{equation}
+         \sum\limits_i
+            \mu'_{kj} - x_{ij}
+         = 0
+    \end{equation}
+
 
 \end{solution}
 
