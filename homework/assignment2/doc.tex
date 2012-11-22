@@ -66,8 +66,8 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
 \end{exercise}
 \begin{solution}
     The M step is to optimize the auxiliary function $Q$ with respect to
-    $\pi,\theta'$. $Q$ is the expected log-likelihood with respect to the former
-    parameter $\theta$ and the observed data $D$. 
+    $\pi,\theta'$. $Q$ is the expected posterior log-likelihood with respect 
+    to the last  parameter $\theta$ and the observed data $D$. 
     \footnote{It can be shown that $Q$ is so that the new parameters is always
     better or as good as the last one, but exclude this proof.}
     The expression for this is
@@ -78,12 +78,13 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     we introducing the latent variable $z_i$ which corresponds to the
     hidden or missing
     variables which basically is the $r.v.$ for how $x_i$
-    belongs to the different classes $k$ \footnote{Responsibility $r_{ik}\eqdef
+    belongs to the class $k$ \footnote{Responsibility $r_{ik}\eqdef
     \cprob{z_i=k}{x_i,\theta}$}.
-    
+    We start with MAP and then derive ML by setting a uniform priori.
     \begin{equation}
        Q(\theta', \theta) = 
-       \Expected\left[\sum\limits_i\log \cprob{x_i,z_i}{\theta'}\right] 
+       \Expected\left[\sum\limits_i\log
+       \cprob{x_i,z_i}{\theta'}\prob{\theta'}\right] =
     \end{equation}
     since $\Expected$ is linear and we can factor on the different classes and
     the factors become given with the parameters $(\pi_k,\theta'_k)$ of class $k$:
@@ -92,12 +93,12 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
             \log\left[
                 \prod\limits_k{(
                     \pi_k\cprob{x_i}{\theta'_k}
-                )^{\II(z_i=k)}} 
+                )^{\II(z_i=k)}}
+                \prob{\theta'_k}
             \right]
-        \right] 
+        \right] = 
     \end{equation}
-    then log the inner parts and let $\Expected$ operate on the expression like
-    this:
+    then log the inner parts and let $\Expected$ operate on the expression 
     \begin{equation}
         =\sum\limits_i\sum\limits_k\Expected
             \left[
@@ -105,36 +106,45 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
             \right]
             \log\left[
                 \cprob{x_i}{\theta'_k}
-            \right]
+            \right] + \log\prob{\theta'_k} = 
     \end{equation}
     then we have that the expected $\Expected\left[\II(z_i=k)\right]$ will be
     $\cprob{z_i=k}{x_i,\theta}=r_{ik}$ which is the expected class-belonging of
     $x_i$ given the previous parameters $\theta$.
-    Now we denote this by $r_{ik}$ and use the log product rule to
-    get
+    The log product rule gives us
     \begin{equation}
         = \sum\limits_i \sum\limits_k {r_{ik}\log \pi_k} +
-        \sum\limits_i \sum\limits_k r_{ik} \log \cprob{x_i}{\theta'_k}
+        \sum\limits_i \sum\limits_k \left\{ r_{ik} \log \cprob{x_i}{\theta'_k} +
+        \log \prob{\theta'_k}
+        \right\}
     \end{equation}
     
     Now since we have that $\sum\limits_{i,k}r_{ik}\log\pi_k \perp
-    \sum\limits_{i,k}r_{ik}\log\cprob{x_i}{\theta'_k}$ we can optimize the parameters
+    \sum\limits_{i,k}\left\{r_{ik}\log\cprob{x_i}{\theta'_k}+\log
+    \prob{\theta'_k}\right\}$ we can optimize the parameters
     $\pi_k$ and $\theta'_k$ separately and only the $\theta'_k$-term is asked for in the
     exercise which we denote $\ell(\theta'_k)$.
 
     The model parameters in this case is denoted by $\mu_k$ which is a vector
-    and in index-notation $\mu_{kj}$\footnote{Not using Einstein notation for
-    Tensor product.}.
+    and in index-notation $\mu_{kj}$
+    \footnote{Not using Einstein notation for Tensor product.}.
 
-    We start with the ML
+    We start with the MAP
     \begin{equation}
         \hat{\mu}'_k = \argmax{\mu'_k}{\left\{\sum\limits_i
-        r_{ik}\log\cprob{x_i}{\mu'_k}\right\}}
+        r_{ik}\log\cprob{x_i}{\mu'_k}+\log\prob{\mu'_k}\right\}}
     \end{equation}
     which we find by $\partdev{\ell(\mu'_k)}{\mu'_k}=0$, where 
-    $\prod\limits_j \cprob{x_{ij}}{\mu'_{kj}}$ 
-    is the multivariate Bernoulli for class $k$
+    $\cprob{x_i}{\mu'_k}=\prod_j \cprob{x_{ij}}{\mu'_{kj}}$ 
+    is the multivariate Bernoulli\footnote{Often called multinoulli.}
+    distribution for class $k$. The priori in the same way is
+    $\prob{\mu'_k}=\prod_j{\prob{\mu'_{kj}}}$ and we will keep it as a general
+    distribution for as long as possible to make it easier to do ML later but
+    in the MAP case is $\beta(\alpha,\beta)
+    =\frac{{\mu'_{kj}}^{\alpha-1}(1-\mu'_{kj})^{\beta-1}}{B(\alpha,\beta)}$.
+
     \begin{eqnarray}
+        \label{eq:MAP_general}
         \partdev{
             \left(
             \ell(\mu'_k)
@@ -145,42 +155,53 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
         } = 
         \partdev{
             \sum\limits_i r_{ik}\log \prod\limits_{j'} \cprob{x_{ij'}}{\mu'_{kj'}}
+            + \log\prod\limits_{j'} \prob{\mu'_{kj'}}
         }
         {
             \mu'_{kj} 
         }=
         \partdev{
-        \sum\limits_{i,j'} r_{ik}\log\cprob{x_{ij'}}{\mu'_{kj'}} 
+            \sum\limits_{i,j'} r_{ik}\log\cprob{x_{ij'}}{\mu'_{kj'}}
+            + \log \prob{\mu'_{kj'}}
         }
         {
             \mu'_{kj}
-        }= \left\{
+        }=\\=
+        \left\{
             \partdev{
                 \sum\limits_{j\neq j'} (\cdot)
             }
             {
                 \mu'_{kj}
             } = 0
-            \right\}  = \\
-        =
+        \right\} = 
         \partdev{
             \sum\limits_{i}r_{ik}\log \left(
                 {\mu'_{kj}}^{x_{ij}}
                 (1-{\mu'_{kj}})^{(1-x_{ij})}
             \right)
+            + \log \frac{
+                    {\mu'_{kj}}^{\alpha-1} (1-\mu'_{kj})^{\beta-1}
+                }{
+                    B(\alpha,\beta)
+                }
         }
         {
             \mu'_{kj}
         }
-        =
+        = \\ =
         \partdev{
-            \sum\limits_{i}r_{ik} x_{ij}\log{\mu'_{kj}} + r_{ik}(1-x_{ij})\log({1-\mu'_{kj}})
+            \sum\limits_{i}r_{ik} x_{ij}\log{\mu'_{kj}} +
+            r_{ik}(1-x_{ij})\log({1-\mu'_{kj}})+
+            (\alpha-1)\log\mu'_{kj}+(\beta-1)\log(1-\mu'_{kj})-\log B(\alpha,\beta)
         }
         {
             \mu'_k  
-        } = \\
-        = \sum\limits_{i} r_{ik}\frac{x_{ij}}{\mu'_{kj}} -
-        r_{ik}\frac{1-x_{ij}}{1-\mu'_{kj}} =
+        }  
+        = \\ = 
+        \sum\limits_{i} \frac{r_{ik}x_{ij}+\alpha-1}{\mu'_{kj}} -
+        \frac{r_{ik}(1-x_{ij})+\beta-1}{1-\mu'_{kj}} 
+        = CONTINUE HERE 
         \sum\limits_i r_{ik}\frac{
             \mu'_{kj} - x_{ij}
         }
