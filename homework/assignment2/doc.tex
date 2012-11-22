@@ -74,11 +74,11 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     \begin{equation}
         Q(\theta', \theta) = \Expected\left[\ell(\theta')|D,\theta\right]
     \end{equation}
-    and to derive the expression we will use when optimizing with ML/MAP we start
-    with introducing the latent variable $z_i$ which corresponds to the
+    and to derive this expression 
+    we introducing the latent variable $z_i$ which corresponds to the
     hidden or missing
     variables which basically is the $r.v.$ for how $x_i$
-    is in the class $k$ \footnote{Responsibility $r_{ik}\eqdef
+    belongs to the different classes $k$ \footnote{Responsibility $r_{ik}\eqdef
     \cprob{z_i=k}{x_i,\theta}$}.
     
     \begin{equation}
@@ -86,7 +86,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
        \Expected\left[\sum\limits_i\log \cprob{x_i,z_i}{\theta'}\right] 
     \end{equation}
     since $\Expected$ is linear and we can factor on the different classes and
-    the factors becomes given only the parameters $(\pi_k,\theta'_k)$ of class $k$:
+    the factors become given with the parameters $(\pi_k,\theta'_k)$ of class $k$:
     \begin{equation}
        =\sum\limits_i\Expected \left[ 
             \log\left[
@@ -107,11 +107,11 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
                 \cprob{x_i}{\theta'_k}
             \right]
     \end{equation}
-    then we put the expected $\Expected\left[\II(z_i=k)\right]$ to be
-    $\cprob{z_i=k}{x_i,\theta}=r_{ik}$ that is the expected class belonging of
+    then we have that the expected $\Expected\left[\II(z_i=k)\right]$ will be
+    $\cprob{z_i=k}{x_i,\theta}=r_{ik}$ which is the expected class-belonging of
     $x_i$ given the previous parameters $\theta$.
-    Now put in the denotation $r_{ik}$ and use the log on product rule to
-    finally get
+    Now we denote this by $r_{ik}$ and use the log product rule to
+    get
     \begin{equation}
         = \sum\limits_i \sum\limits_k {r_{ik}\log \pi_k} +
         \sum\limits_i \sum\limits_k r_{ik} \log \cprob{x_i}{\theta'_k}
@@ -120,7 +120,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     Now since we have that $\sum\limits_{i,k}r_{ik}\log\pi_k \perp
     \sum\limits_{i,k}r_{ik}\log\cprob{x_i}{\theta'_k}$ we can optimize the parameters
     $\pi_k$ and $\theta'_k$ separately and only the $\theta'_k$-term is asked for in the
-    exercise which will be denoted by $\ell(\theta'_k)$.
+    exercise which we denote $\ell(\theta'_k)$.
 
     The model parameters in this case is denoted by $\mu_k$ which is a vector
     and in index-notation $\mu_{kj}$\footnote{Not using Einstein notation for
@@ -216,14 +216,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     \end{equation}
 
     which is the same as the equation \eqref{eq:EM_ML_Ber}.
-
-    The next thing to do is MAP with the priori\footnote{Note that we will
-    reuse the notations for MAP from ML to avoid cluttering, it will be easy to
-    separate them by their context.}
-    \begin{equation}
-        \prob{\mu'_{kj}} = \beta(\alpha,\beta) 
-    \end{equation}
-     
+    
 
 \end{solution}
 
