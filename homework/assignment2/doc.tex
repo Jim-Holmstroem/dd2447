@@ -16,7 +16,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     \begin{theorem} Chain rule
     \begin{equation}
         \prob{\textstyle\bigcap_k
-        x_k}=\prod_k\cprob{x_k}{\textstyle\bigcap_{j:j<k-1}x_j}
+        x_k}=\prod_k\cprob{x_k}{\textstyle\bigcap_{j:j<k}x_j}
     \end{equation}
     \end{theorem}
     \begin{proof}
@@ -33,26 +33,77 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
         \end{equation}
         by tail-recursion on
         $\prob{\bigcap_{j'}x_{j'}}=\prob{x_a\cap\left(\bigcap_{j'\neq
-        a}x_{j'}\right)}$ we will exhaust all $j'$ which leaves us with
+        a}x_{j'}\right)}$ we will exhaust all $j'$ which leaves us with the
         base-case $\prob{x_a}$. Writing out the entire trace of the recursion
         will gives us the wanted expression for $\prob{\bigcap_k x_k}$.
     \end{proof}
-    The goal is to break down $\cprob{D}{T}$ into CPD's for each node
+    The first goal is to break down $\cprob{D}{T}$ into the CPD's for each node
     \begin{equation}
-        \cprob{D}{T} = \phi\left(
-                            \left\{\cprob{x_t}{\cdot}\right\}_t
+        \cprob{D}{T} = \phi
+                            \left(
+                                \left\{
+                                    \cprob{x_t}{\cdot}
+                                \right\}_t
                             \right)
     \end{equation}
-    which gives us a explicit expression for the $\cprob{D}{T}$.
+    this gives an explicit expression for the $\cprob{D}{T}$.
 
-    polytree=>no directed cycles=>typoligical sortable
-    chainrule on typologically sorted nodes 
-    show that we will always have all the parents in p(xt|.) since it's
-    topologically sorted
-    the CI assumption removes all non parents
+    Since $T$ is a $\text{polytree}\subset\text{DAG}$ it is always possible to 
+    sort the data topologically according to $T$.\footnote{How we sort the data
+    within a topological level doesn't matter.} 
+    We arrange the indices of the data this way so that it will be
+    topologically sorted according to $T$ and even if it's bad practice in math we
+    replace the old indices with the new sorted ones. This results in
+    variables always having the property $i<j\Rightarrow i$ higher up or equally high
+    as $j$.\footnote{``higher'' is the context of topological sorting means
+    that it is higher up in the sorted DAG that grows downwards.}
+
+    Now apply the chain rule
+    \begin{equation}
+        \label{eq:chainruled}
+        \cprob{D}{T} = \cprob{\left\{x_t\right\}_{k}}{T} = 
+        \prod_k\cprob{x_k}{\left\{x_j\right\}_{j:j<k},T}
+    \end{equation}
+
+    Next we note that since we have that the data is topologically sorted
+    we know that
+    \begin{equation}
+        \left(D \setminus \left\{x_j\right\}_{j:j<k}\right) \cap
+        pa\left(x_k\right) = \emptyset
+    \end{equation}
+    in other words the parent cannot be at the same or lower topological level.
+    This results in 
+    \begin{equation}
+        \label{eq:superset_parent}
+        \left\{x_j\right\}_{j:j<k} \supset pa\left(x_k\right)
+    \end{equation}
+    which basically states that the parents, denoted 
+    $pa(\cdot)$, always is at a higher level.
+    
+    The next step is to use the conditional independence information from $T$,
+    which is that a r.v. is only dependent on the parents r.v.'s\footnote{At
+    least for a completely visible graph.}, together with the fact
+    \eqref{eq:superset_parent} in \eqref{eq:chainruled} we get 
+    \begin{equation}
+        \cprob{D}{T} 
+        =\prod_k\cprob{x_k}{\left\{x_j\right\}_{j:j<k},T}
+        =\prod_k\cprob{x_k}{pa\left(x_k\right)}
+    \end{equation}
+    Finally since we only have cpt's\footnote{According to mail correspondence with
+    the teacher.} $f_t$\footnote{Since each distribution has to be normalized
+    to 1, this is the same thing as setting $p\in\left(0,1\right)$ in a
+    bernoulli}, we have that
+    \begin{equation}
+        x_t \sim Ber\left(f_t(pa(x_t))\right) 
+    \end{equation}
+    and as explicitly written out as possible
+    \begin{equation}
+        \cprob{D}{T}
+        =\prod_k\cprob{x_k}{pa\left(x_k\right)}
+        =\prod_k
+        f_k\left(pa(x_k)\right)^{x_k}(1-f_k\left(pa(x_k)\right))^{1-x_k}
+    \end{equation}
     \qed
-
-
 \end{solution}
 
 \begin{exercise}{A2} Marginalize over non-observed variables \\
