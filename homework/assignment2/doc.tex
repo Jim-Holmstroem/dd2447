@@ -13,6 +13,44 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     Assume that all variables are binary and all CPD's Bernoulli.
 \end{exercise}
 \begin{solution}
+    \begin{theorem} Chain rule
+    \begin{equation}
+        \prob{\textstyle\bigcap_k
+        x_k}=\prod_k\cprob{x_k}{\textstyle\bigcap_{j:j<k-1}x_j}
+    \end{equation}
+    \end{theorem}
+    \begin{proof}
+        We can extend the rule 
+        \begin{equation}
+            \prob{x_i,x_j} = \cprob{x_i}{x_j}\prob{x_j} 
+        \end{equation}
+        since $x_i,x_j$ is just events we might as well have 
+        $x_j=\bigcap_{j'}x_{j'}$ which makes the expression look like this
+        \begin{equation}
+            \prob{x_i\cap \left(\textstyle\bigcap_{j'}x_{j'}\right)} =
+           \cprob{x_i}{\textstyle\bigcap_{j'}x_{j'}}
+           \prob{\textstyle\bigcap_{j'}x_{j'}}
+        \end{equation}
+        by tail-recursion on
+        $\prob{\bigcap_{j'}x_{j'}}=\prob{x_a\cap\left(\bigcap_{j'\neq
+        a}x_{j'}\right)}$ we will exhaust all $j'$ which leaves us with
+        base-case $\prob{x_a}$. Writing out the entire trace of the recursion
+        will gives us the wanted expression for $\prob{\bigcap_k x_k}$.
+    \end{proof}
+    The goal is to break down $\cprob{D}{T}$ into CPD's for each node
+    \begin{equation}
+        \cprob{D}{T} = \phi\left(
+                            \left\{\cprob{x_t}{\cdot}\right\}_t
+                            \right)
+    \end{equation}
+
+    polytree=>no directed cycles=>typoligical sortable
+    chainrule on typologically sorted nodes 
+    show that we will always have all the parents in p(xt|.) since it's
+    topologically sorted
+    the CI assumption removes all non parents
+    \qed
+
 
 \end{solution}
 
