@@ -101,6 +101,7 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     the probability for $x_t$ directly.
     Now as explicitly written out as possible
     \begin{equation}
+        \label{eq:A1}
         \cprob{D}{T}
         =\prod_k\cprob{x_k}{pa\left(x_k\right)}
         =\prod_k
@@ -116,13 +117,54 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     variables).
 \end{exercise}
 \begin{solution}
+    Firstly note my syntax for concatenating vectors $a,b$ and indexing the
+    concatenation with $k$ looks like this (the order in which they are
+    concatenated will never make any difference):
+    \begin{equation}
+        \left\{a,b\right\}_k
+    \end{equation}
+
     We denote the observed variables with $x_v$ and the hidden with $x_h$, both
     are generally vectors. By general marginalization
     \footnote{$\prob{A}=\sum_{b\in\Omega_B} \prob{A,B=b}$} 
     we have the probability of the observed data 
     \begin{equation}
-        \cprob{x_v}{T} = \sum_{h'}  \cprob{x_v,x_{h'}}{T}
+        \cprob{x_v}{T} = \sum_{x_{h'}\in\prod\left\{0,1\right\}}  \cprob{x_v,x_{h'}}{T}
     \end{equation}
+    $\left\{x_v,x_{h'}\right\}$ will together define values for all variables in $T$ which
+    gives us completely observed data which in turn makes it possible to use
+    \eqref{eq:A1}. This should not be confused with having the data for $x_h$
+    in any way, but if we set $x_h = x_{h'}$ we can regard it as
+    ``observed''.
+
+    The probability for the observed variables will become
+    \begin{equation}
+        \cprob{x_v}{T} = \sum_{x_{h'}\in\prod\left\{0,1\right\}}
+        \cprob{x_v,x_{h'}}{T} = \sum_{x_{h'}}\prod_k
+        \cprob{\left\{x_v,x_{h'}\right\}_k}{pa(\left\{x_v,x_{h'}\right\}_k)}
+    \end{equation}
+    writing everything explicitly will be really messy but we do it for the
+    sake of completeness:
+    \begin{equation}
+        \cprob{x_v}{T} = 
+\sum_{x_{h'}\in\prod\left\{0,1\right\}}
+        \prod_k f_k
+            \left(
+                pa(
+                    \left\{x_v,x_{h'}\right\}_k
+                )
+            \right)
+            ^{\left\{x_v,x_{h'}\right\}_k}
+            (1-f_k
+                \left(
+                pa(
+                    \left\{x_v,x_{h'}\right\}_k
+                )
+            \right)
+            )^{1-\left\{x_v,x_{h'}\right\}_k}
+    \end{equation}
+
+    \qed
 
 \end{solution}
 
