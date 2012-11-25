@@ -97,7 +97,9 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     \begin{equation}
         x_t \sim Ber\left(f_t(pa(x_t))\right) 
     \end{equation}
-    and as explicitly written out as possible
+    note that if $pa(x_t)=\emptyset$ then $f_t$ will simply define with one row 
+    the probability for $x_t$ directly.
+    Now as explicitly written out as possible
     \begin{equation}
         \cprob{D}{T}
         =\prod_k\cprob{x_k}{pa\left(x_k\right)}
@@ -114,6 +116,13 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
     variables).
 \end{exercise}
 \begin{solution}
+    We denote the observed variables with $x_v$ and the hidden with $x_h$, both
+    are generally vectors. By general marginalization
+    \footnote{$\prob{A}=\sum_{b\in\Omega_B} \prob{A,B=b}$} 
+    we have the probability of the observed data 
+    \begin{equation}
+        \cprob{x_v}{T} = \sum_{h'}  \cprob{x_v,x_{h'}}{T}
+    \end{equation}
 
 \end{solution}
 
