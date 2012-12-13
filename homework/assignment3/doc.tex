@@ -4,11 +4,40 @@ titlepage=false,headings=small,parskip=half,version=last]{scrartcl}
 \usepackage{../lib/probability}
 \begin{document}
 \generateheader{Assignment 3}
+In all cases you are supposed to provide as sound algorithms of the types
+described in the course.
+Summing over exponentially many terms and other
+solutions that always gives exponential time, will not be considered
+sufficient.
+\begin{exercise}{2} MAP switch setting and position on model railway \\ 
+Imagine a model railway with a single train. You know the map of the tracks
+including the position of all the switches, but you don't know current states
+of the switches, or where the train is currently located. Each switch has three
+connections: $\left\{0,L,R\right\}$. If the train comes from the direction of
+$L$ or $R$, it always
+leaves in the direction $0$. If the train comes from the direction $0$, it will
+leave in either direction $L$ or $R$, depending on the state of the switch. The
+switch has prior probability $1/2$ for each direction, but will remain the same
+throughout the train run. You are receiving a stream of signals from the train,
+each signal specifying the direction in which train has passed a switch: 
+$\left\{0L,0R,L0,R0\right\}$; you do not know, however, 
+which switch the train has passed.
+Also, the sensors are noisy, and with a certain probability $p$, the train
+reports a random signal instead of a real direction in which it passed the
+switch.
 
-\begin{exercise}{1.1} Title of the problem \\ 
+Given the map of the railroad and a sequence of switch signals
+$\left\{ y_i \right\}_1^T$. Your task is to compute MAP switch and current
+position.
+\end{exercise}
+\begin{solution}
+    
+\end{solution}
+
+\begin{exercise}{3}Gibbs sampler for posterior of magic word generative model\\
+    
 \end{exercise}
 \begin{solution}
 \end{solution}
-
 %-----------------------
 \end{document}
