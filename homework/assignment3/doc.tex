@@ -31,7 +31,60 @@ sufficient.
     position.
 \end{exercise}
 \begin{solution}
-    
+    Represent the connections on switch $\alpha$ with 
+    $\left\{\alpha_0,\alpha_L,\alpha_R\right\}$. 
+
+    The outline for this solution is to reduce the original problem to one
+    which fulfills the Markov assumption and can thus be used without being a
+    approximation in a ordinary HMM.
+
+    ``Current position'' can either be the position of the last passed switch
+    which is hinted by the assignment having a list of positions for the
+    switches given or it could be defined as being in between two connections.
+    If we have the first case we simply pick the switch from the last of the
+    two connections we are between according to MAP solution. 
+
+    Let $\cdot\leftrightarrow\cdot$ denote a link between connections in the
+    given map.
+
+    Construct a switch-graph
+    \footnote{Not a real graph yet because of the
+    switches, they could be deduced at this step but it will just make it
+    harder.}
+    $G$ of the map where each switch is represented by a triangle with the
+    side $LR$ in bold,
+    \footnote{Arbitrary representation of a switch but it catches that it is
+    one object and that you cannot pass between $L$ and $R$.} 
+    each connection is a node, and the edges is given by the map information
+    $\cdot\leftrightarrow\cdot$. 
+
+    A simple example of a map would be the two switches $\alpha,\beta$ with the
+    links 
+    $\left\{
+        \alpha_L\leftrightarrow\beta_L,
+        \alpha_0\leftrightarrow\beta_R,
+        \alpha_R\leftrightarrow\beta_0
+    \right\}$
+
+    If we were to use this representation of states we stumble into
+    problems when you are in state $\alpha_0$ since you don't know if you came
+    from $\alpha_L$ or $\alpha_R$ and thus cannot decide the correct 
+    distribution for the observation. A possible solution to this would be to
+    perform a directed lifting of the graph $G$ and denote this by $G'$.
+    In the simple example we will have the \underline{nodes}
+    $\left\{
+        \alpha_L\rightarrow\beta_L,
+        \alpha_L\leftarrow\beta_L,
+        \alpha_0\rightarrow\beta_R,
+        \alpha_0\leftarrow\beta_R,
+        \alpha_R\rightarrow\beta_0,
+        \alpha_R\leftarrow\beta_0
+    \right\}$.
+    But 
+
+
+    %Note about sparsity in graph and lifted graph
+
 \end{solution}
 
 \begin{exercise}{3}Gibbs sampler for posterior of magic word generative model\\
