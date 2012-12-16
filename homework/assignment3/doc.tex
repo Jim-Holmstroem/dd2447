@@ -9,7 +9,7 @@ described in the course.
 Summing over exponentially many terms and other
 solutions that always gives exponential time, will not be considered
 sufficient.
-\begin{exercise}{2} MAP switch setting and position on model railway \\ 
+\begin{exercise}{1/2} MAP switch setting and position on model railway \\ 
     Imagine a model railway with a single train. You know the map of the tracks
     including the position of all the switches, but you don't know current states
     of the switches, or where the train is currently located. Each switch has three
@@ -26,7 +26,13 @@ sufficient.
     reports a random signal instead of a real direction in which it passed the
     switch.
 
-    Given the map of the railroad and a sequence of switch signals
+    (1a) Given a sequence of switch signals $\left\{y_i\right\}_{i=1}^T$ and the settings of
+    the switches compute MAP position $z_t$.
+
+    (1b) Given a sequence of switch signals $\left\{y_i\right\}_{i=1}^T$ and the
+    corresponding positions $\left\{z_i\right\}_{i=1}^T$ compute MAP switch settings.
+
+    (2) Given the map of the railroad and a sequence of switch signals
     $\left\{ y_i \right\}_{i=1}^T$. Your task is to compute MAP switch and current
     position.
 \end{exercise}
@@ -80,12 +86,12 @@ sufficient.
     links becomes undirected edges between the new states, denote 
     this by $G'$.
     So $\forall \alpha \in \text{switches}$ we have the $4$ states:
-    %$\left\{
-    %    \alpha_0\rightarrow\alpha_L,
-    %    \alpha_0\leftarrow\alpha_L,
-    %    \alpha_0\rightarrow\alpha_R,
-    %    \alpha_0\leftarrow\alpha_R
-    %\right\}$.
+    $\left\{
+        \alpha_0\rightarrow\alpha_L,
+        \alpha_0\leftarrow\alpha_L,
+        \alpha_0\rightarrow\alpha_R,
+        \alpha_0\leftarrow\alpha_R
+    \right\}$.
     Which gives us a total of $4T$ states for $G'$.
 
     Note that $G'$ is sparse with only $O(T)$ edges both in the
@@ -149,43 +155,67 @@ sufficient.
 
     And finally from this all possible local cases comes from symmetry.
 
-
-
-
-    Using the lecture slide 9 
-    ``learning transition and emission parameters''
-    but in our case we have constraints on the transition matrix and the
-    observation matrix is already given.
-    Since finding the exact transition table is intractable in general we ..
-
-\end{solution}
-
-\begin{exercise}{3}Gibbs sampler for posterior of magic word generative model\\
-    The following generative model generates $K$ sequences of length $N$:
-    $\left\{s_i\right\}_{i=1}^K$ where $s_i=\left\{s_{i,j}\right\}_{j=1}^N$.
-    All sequences are over the alphabet $\left[M\right]$. Each of these
-    sequences has a ``magic'' word of length $w$ hidden in it and the rest of
-    the sequence is called background.
-
-    First $\forall i$, a start position $r_i$ for the magic word is sampled
-    uniformly from $\left[N-w+1\right]$. Then the $j$:th positions in the words
-    are sampled from $q_j(x)$, which is $Cat\left(x|\theta_j\right)$ where 
-    $\theta_j$ has a $Dir\left(\theta_j|\alpha\right)$ prior. All other
-    positions in the sequences are sampled from the background distribution
-    $q(x)$, which is $Cat\left(x|\theta\right)$ where $\theta$ has a
-    $Dir\left(\theta|\alpha'\right)$ prior.
-\end{exercise}
-\begin{solution}
-    
-\end{solution}
-%-----------------------
-\end{document}
+    The observation matrix (maps state to observation probability) 
+    can be constructed by simply taking
+    \begin{equation}
+        P(y|\alpha_i\rightarrow\alpha_j) = \left\{
+              \begin{array}{l l}
+                      1-\frac{3p}{4} & \quad ij=y\\
+                                 p/4 & \quad ij\neq y 
+                    \end{array} \right.
     \end{equation}
+    Note that all the information about which one of the switches that signaled
+    is lost. And of course the representation of a row in transition matrix and 
+    the observation matrix most agree to have a sensible matrix multiplication.
 
-    Using the lecture slide 9 
-    ``learning transition and emission parameters''
-    but in our case we have constraints on the transition matrix and the
-    observation matrix is already given.
+    For the first problem (1a) we set $P_\alpha$ to either $0$ or $1$
+    corresponding to the switch settings and then we simply get the most
+    probable hidden state sequence with Viterbi which is known to be MAP. 
+    We then trivially post-process the hidden 
+    state sequence to extract the position in the wanted form, for example
+    state $(\alpha_i\rightarrow\alpha_j)\leftrightarrow \alpha$.
+
+    For the second problem (1b) it becomes harder since a exact inference of
+    the transition probability in a general HMM is intractable. We do need to
+    use the sparseness of parameters in our transition matrix to make it
+    tractable or we need to show that approximative algorithms in fact returns
+    the exact solution for our case. The
+    intractability comes from that we have to sum up over all possible hidden
+    state sequences to calculate the probability for some things. For example
+    it is not tractable to check the probability for each combination of switch
+    settings most probable hidden state sequence (where the state sequence can
+    be either given or not).
+
+    There exist some papers on utilizing the sparsity in the model, like
+    `` Constrained Hidden Markov Models'' - Sam Roweis, but they are sparse.
+    And my hunch is reducing the number of free parameters from $T^2$ to $O(T)$
+    in the transition matrix will not make exact inference to be
+    sub-exponential.
+
+    The conclusion on this is that the solution is probably to show that the
+    local optimization solution is also global and thereby being exact. The
+    probability for a local  solution to be a global one is greatly increased
+    when going from a complete transition matrix to a $O(n)$. One could
+    probably show that the optimization problem is convex for this type of
+    sparse matrix while general transition matrix is not.
+
+    To solve (2) we first infer the switch settings like above and then use
+    the found transition matrix to find the most probable hidden state sequence
+    with Viterbi.
+
+    %Using the lecture slide 9 
+    %``learning transition and emission parameters''
+    %but in our case we have constraints on the transition matrix and the
+    %observation matrix is already given.
+    %Since finding the exact transition table in general is intractable we
+    %need to use some properties from this case which sets it apart from the
+    %general case. A hunch on this would be the sparsity of free variables in
+    %the transition matrix. 
+
+    %The start state will be uniformly distributed over the states. 
+
+    %local estimated maximum should be sufficient since there is only O(T) free
+    %parameters...
 
 \end{solution}
 
@@ -209,3 +239,4 @@ sufficient.
 \end{solution}
 %-----------------------
 \end{document}
+
