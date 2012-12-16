@@ -79,20 +79,108 @@ sufficient.
     perform a directed lifting inside the switches of the graph $G$ and the
     links becomes undirected edges between the new states, denote 
     this by $G'$.
-    So $\foreach \alpha \in \text{switches}$ we have the $4$ states:
-    $\left\{
-        \alpha_0\rightarrow\alpha_L,
-        \alpha_0\leftarrow\alpha_L,
-        \alpha_0\rightarrow\alpha_R,
-        \alpha_0\leftarrow\alpha_R,
-    \right\}$.
+    So $\forall \alpha \in \text{switches}$ we have the $4$ states:
+    %$\left\{
+    %    \alpha_0\rightarrow\alpha_L,
+    %    \alpha_0\leftarrow\alpha_L,
+    %    \alpha_0\rightarrow\alpha_R,
+    %    \alpha_0\leftarrow\alpha_R
+    %\right\}$.
     Which gives us a total of $4T$ states for $G'$.
 
     Note that $G'$ is sparse with only $O(T)$ edges both in the
     undirected inherited from $G$ as well as the lifted directed ones.
 
     Each link from the original map constructs a constraint on the transition
-    matrix $A$.
+    matrix $A$. And can be listed as follows; the sparsity renders most
+    transitions $0$ along with the diagonal and thus we will only list the
+    non-zero ones.
+    Looking locally at a connection we have either it being a in- or output and 
+    the same goes for the connected neighbour to it. In this case in- and
+    output basically means input$=\left\{\alpha_0\right\}$ and
+    output$=\left\{\alpha_L,\alpha_R\right\}$.
+
+    For output linked to output we have:
+    \begin{eqnarray}
+        \alpha_L\leftrightarrow\beta_L \Rightarrow 
+        (\alpha_0\leftarrow\alpha_L) 
+            &\rightarrow&
+        (\beta_0\rightarrow\beta_L) 
+        = 1,\nonumber \\
+        (\beta_0\leftarrow\beta_L) 
+            &\rightarrow&
+        (\alpha_0\rightarrow\alpha_L) 
+        = 1 \nonumber \\
+    \end{eqnarray}
+    
+    For input to output (and output to input by symmetry) we have:
+    \begin{eqnarray}
+        \alpha_0\leftrightarrow\beta_L \Rightarrow 
+        (\alpha_0\leftarrow\alpha_L)
+            &\rightarrow&
+        (\beta_0\leftarrow\beta_L) = 1, \nonumber \\
+        (\alpha_0\leftarrow\alpha_R)
+            &\rightarrow&
+        (\beta_0\leftarrow\beta_L) = 1, \nonumber \\
+        (\beta_0\leftarrow\beta_L)
+            &\rightarrow&
+        (\alpha_0\rightarrow\alpha_L) = P_\alpha, \nonumber \\
+        (\beta_0\leftarrow\beta_L)
+            &\rightarrow&
+        (\alpha_0\rightarrow\alpha_R) = 1-P_\alpha \nonumber \\
+    \end{eqnarray}
+
+    For input to input we have:
+    \begin{eqnarray}
+        \alpha_0\leftrightarrow\beta_L \Rightarrow 
+        (\alpha_0\leftarrow\alpha_L)
+            &\rightarrow&
+        (\beta_0\leftarrow\beta_L) = 1, \nonumber \\
+        (\alpha_0\leftarrow\alpha_R)
+            &\rightarrow&
+        (\beta_0\leftarrow\beta_L) = 1, \nonumber \\
+        (\beta_0\leftarrow\beta_L)
+            &\rightarrow&
+        (\alpha_0\rightarrow\alpha_L) = P_\alpha, \nonumber \\
+        (\beta_0\leftarrow\beta_L)
+            &\rightarrow&
+        (\alpha_0\rightarrow\alpha_R) = 1-P_\alpha \nonumber \\
+    \end{eqnarray}
+
+    and from this all possible local cases comes from symmetry.
+
+
+
+
+    Using the lecture slide 9 
+    ``learning transition and emission parameters''
+    but in our case we have constraints on the transition matrix and the
+    observation matrix is already given.
+    Since finding the exact transition table is intractable in general we ..
+
+\end{solution}
+
+\begin{exercise}{3}Gibbs sampler for posterior of magic word generative model\\
+    The following generative model generates $K$ sequences of length $N$:
+    $\left\{s_i\right\}_{i=1}^K$ where $s_i=\left\{s_{i,j}\right\}_{j=1}^N$.
+    All sequences are over the alphabet $\left[M\right]$. Each of these
+    sequences has a ``magic'' word of length $w$ hidden in it and the rest of
+    the sequence is called background.
+
+    First $\forall i$, a start position $r_i$ for the magic word is sampled
+    uniformly from $\left[N-w+1\right]$. Then the $j$:th positions in the words
+    are sampled from $q_j(x)$, which is $Cat\left(x|\theta_j\right)$ where 
+    $\theta_j$ has a $Dir\left(\theta_j|\alpha\right)$ prior. All other
+    positions in the sequences are sampled from the background distribution
+    $q(x)$, which is $Cat\left(x|\theta\right)$ where $\theta$ has a
+    $Dir\left(\theta|\alpha'\right)$ prior.
+\end{exercise}
+\begin{solution}
+    
+\end{solution}
+%-----------------------
+\end{document}
+    \end{equation}
 
     Using the lecture slide 9 
     ``learning transition and emission parameters''
