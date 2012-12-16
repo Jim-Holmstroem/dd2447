@@ -44,8 +44,10 @@ sufficient.
     If we have the first case we simply pick the switch from the last of the
     two connections we are between according to MAP solution. 
 
-    Let $\cdot\leftrightarrow\cdot$ denote a link between connections in the
-    given map.
+    Let $\cdot\leftrightarrow\cdot$ denote a undirected link
+    \footnote{Use the word ``link'' instead of ``connection'' to avoid 
+    name collision}
+    between connections in the given map.
 
     Construct a switch-graph
     \footnote{Not a real graph yet because of the
@@ -69,21 +71,33 @@ sufficient.
     If we were to use this representation of states we stumble into
     problems when you are in state $\alpha_0$ since you don't know if you came
     from $\alpha_L$ or $\alpha_R$ and thus cannot decide the correct 
-    distribution for the observation. A possible solution to this would be to
-    perform a directed lifting of the graph $G$ and denote this by $G'$.
-    In the simple example we will have the \underline{nodes}
+    distribution for the observation. A possible solution
+    \footnote{Another possible solution is to lift it on the links and then
+    lift that graph again, which was my first try. I think that also worked but
+    it became a real mess.}
+    to this would be to
+    perform a directed lifting inside the switches of the graph $G$ and the
+    links becomes undirected edges between the new states, denote 
+    this by $G'$.
+    So $\foreach \alpha \in \text{switches}$ we have the $4$ states:
     $\left\{
-        \alpha_L\rightarrow\beta_L,
-        \alpha_L\leftarrow\beta_L,
-        \alpha_0\rightarrow\beta_R,
-        \alpha_0\leftarrow\beta_R,
-        \alpha_R\rightarrow\beta_0,
-        \alpha_R\leftarrow\beta_0
+        \alpha_0\rightarrow\alpha_L,
+        \alpha_0\leftarrow\alpha_L,
+        \alpha_0\rightarrow\alpha_R,
+        \alpha_0\leftarrow\alpha_R,
     \right\}$.
-    But 
+    Which gives us a total of $4T$ states for $G'$.
 
+    Note that $G'$ is sparse with only $O(T)$ edges both in the
+    undirected inherited from $G$ as well as the lifted directed ones.
 
-    %Note about sparsity in graph and lifted graph
+    Each link from the original map constructs a constraint on the transition
+    matrix $A$.
+
+    Using the lecture slide 9 
+    ``learning transition and emission parameters''
+    but in our case we have constraints on the transition matrix and the
+    observation matrix is already given.
 
 \end{solution}
 
